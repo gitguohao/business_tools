@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>图片上传</title>
+    <script src="https://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+</head>
+<body>
+    <form >
+        <div>
+            <input type="file" id="choose-file" multiple="multiple">
+            <a href="javascript:" id="upload">上传</a>
+        </div>
+        <ul class="file-list">
+        </ul>
+    </form>
+</body>
+<script>
+    var $button = $('#upload'),
+         //选择文件按钮
+         $file = $("#choose-file"),
+         //回显的列表
+         $list = $('.file-list'),
+         //选择要上传的所有文件
+         fileList = [],
+         sendList = [];
+     //当前选择上传的文件
+     var curFile ;
+    $button.on('click',function(){
+    if(fileList.length>0){
+        for(var i=0,len = fileList.length;i < len;i++){
+            let formData = new FormData();
+            formData.append('file',fileList[i]);
+            $.ajax({
+                url:'/oss/file/uploadFiles',
+                type:'post',
+                data:formData,
+                processData:false,
+                contentType:false,
+                success:function(data,statusText,headers){
+                    if(data.success){
+                        var filed = data.data[0];
+                        sendList.push(filed);
+                    }
+                }
+            })
+            }
+
+            }else{
+            alert("请选择文件！")
+            }
+        return false;
+
+    });
+    $file.on('change',function(){         //原生的文件对象，相当于$file.get(0).files[0];
+         curFile = this.files;         //将FileList对象变成数组
+         fileList = fileList.concat(Array.from(curFile));
+         for(var i=0,len = curFile.length;i < len;i++){
+             reviewFile(curFile[i])
+         }
+
+     });
+     function reviewFile(file){         //实例化fileReader,
+         let  fd = new FileReader();         //获取当前选择文件的类型
+         let fileType = file.type;         //调它的readAsDataURL并把原生File对象传给它，
+         fd.readAsDataURL(file);//base64         //监听它的onload事件，load完读取的结果就在它的result属性里了
+         fd.onload = function(){
+
+             if(/^image\/[jpeg|png|jpg|gif]/.test(fileType)){
+                 $list.append('<li class="file-item"><img src="'+this.result+'" alt=""><span class="file-name">'+file.name+'</span><span class="file-del">删除</span></li>')
+             }else{
+                 $list.append('<li class="file-item"><span class="file-name">'+file.name+'</span><span class="file-del">删除</span></li>')
+             }
+         }
+     }
+</script>
+</html>
