@@ -57,7 +57,7 @@ def find():
 
 
 @app.route('/delete/index')
-def find():
+def delete_index():
     commodity = mongo.db.commodity.find()
     return render_template('delete.html', todos=commodity)
 
