@@ -67,7 +67,7 @@ def delete():
     result = mongo.db.commodity.delete_one(
         {'url': url}
     )
-    return redirect('/index/')
+    return redirect('/delete/index/')
 
 
 @app.route('/todo/<content>/finished')
