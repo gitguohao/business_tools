@@ -63,9 +63,9 @@ def delete_index():
 
 @app.route('/delete')
 def delete():
-    url = request.args.get('url', '')
+    id = request.args.get('id', '')
     result = mongo.db.commodity.delete_one(
-        {'url': url}
+        {'_id': id}
     )
     return redirect('/delete/index/')
 
