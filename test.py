@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, abort, redirect
 from flask_pymongo import PyMongo
 from time import time
+from bson.objectid import ObjectId
 import os
 
 app = Flask(__name__)
@@ -65,7 +66,7 @@ def delete_index():
 def delete():
     id = request.args.get('id', '')
     result = mongo.db.commodity.delete_one(
-        {'_id': id}
+        {'_id': ObjectId(id)}
     )
     return redirect('/delete/index/')
 
