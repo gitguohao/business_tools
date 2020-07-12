@@ -12,7 +12,7 @@
             <img src={{todo.url}} alt="" width=400 height=400>
             </div>
             <div style="width:400px; height:100px; border:none; overflow:hidden;">
-                {{todo.name}}<a href="{{ url_for('delete')}}?url={{todo.url}}">删除</a>
+                {{todo.name}}<a href="{{ url_for('delete')}}?url={{todo._id}}">删除</a>
             </div>
         {% endfor %}
 </body>
