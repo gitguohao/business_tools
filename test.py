@@ -1,3 +1,4 @@
+# coding: utf-8
 from flask import Flask, render_template, request, abort, redirect
 from flask_pymongo import PyMongo
 from time import time

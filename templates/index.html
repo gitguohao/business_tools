@@ -8,13 +8,17 @@
     body{text-align:center}
 </style>
 <body>
-        {% for todo in todos %}
-            <div>
-                <img src={{todo.url}} alt="" width=600 height=600>
-            </div>
-            <div style="margin:0 auto; width:600px;">
-                <font size="6">{{todo.name}}</font>
-            </div>
-        {% endfor %}
+    <div style="POSITION:fixed;right:0px;TOP:0px;">
+        <img  src="../static/images/二维码.jpeg"  width=200 height=200>
+        <p>微信扫一扫<br>长按图片进群</p>
+    </div>
+    {% for todo in todos %}
+        <div>
+            <img src={{todo.url}} alt="" width=600 height=600>
+        </div>
+        <div style="margin:0 auto; width:600px;">
+            <font size="6">{{todo.name}}</font>
+        </div>
+    {% endfor %}
 </body>
 </html>
