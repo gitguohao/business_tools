@@ -5,13 +5,14 @@
     <title>商品列表</title>
 </head>
 <style>
+    body{text-align:center}
 </style>
 <body>
         {% for todo in todos %}
             <div>
             <img src={{todo.url}} alt="" width=400 height=400>
             </div>
-            <div style="width:400px; border:none; overflow:hidden;">
+            <div style="margin:0 auto; width:400px;">
                 <font size="6">{{todo.name}}</font>
             </div>
         {% endfor %}
